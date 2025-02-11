@@ -43,39 +43,7 @@ class LikeController extends Controller
         }
     }
 
-    public function dislike(Article $article)
-    {
-        $userId = auth()->id();
 
-        // Vérifier si l'utilisateur a déjà liké ou disliké
-        $like = Like::where('user_id', $userId)
-            ->where('article_id', $article->id)
-            ->first();
-
-        if ($like) {
-            if (!$like->liked) {
-                // Si l'utilisateur a déjà disliké, on annule le dislike
-                $like->delete();
-                $article->decrement('dislikes_count');
-                return response()->json(['message' => 'Dislike removed']);
-            } else {
-                // Si l'utilisateur avait liké, on annule le like et on ajoute un dislike
-                $like->update(['liked' => false]);
-                $article->increment('dislikes_count');
-                $article->decrement('likes_count');
-                return response()->json(['message' => 'Changed to dislike']);
-            }
-        } else {
-            // Si l'utilisateur n'avait rien fait, on ajoute un dislike
-            Like::create([
-                'user_id' => $userId,
-                'article_id' => $article->id,
-                'liked' => false,
-            ]);
-            $article->increment('dislikes_count');
-            return response()->json(['message' => 'Disliked']);
-        }
-    }
     public function getLikes(Article $article)
     {
         $likesCount = $article->likes()->where('liked', true)->count();

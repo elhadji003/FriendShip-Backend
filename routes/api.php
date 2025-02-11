@@ -34,7 +34,6 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('/articles/{article}/archive', [ArticleController::class, 'archive']);
 
     Route::post('/articles/{article}/like', [LikeController::class, 'like']);
-    Route::post('/articles/{article}/dislike', [LikeController::class, 'dislike']);
     Route::get('/articles/{article}/likes', [LikeController::class, 'getLikes']);
     Route::get('/user/total-likes', [ArticleController::class, 'getUserTotalLikes']);
 

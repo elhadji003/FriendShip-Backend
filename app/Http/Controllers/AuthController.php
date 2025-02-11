@@ -45,9 +45,8 @@ class AuthController extends Controller
         }
 
         $user = auth()->user();
-        $user->update(['is_connected' => true]); // Mise à jour de is_connected à true
+        $user->update(['is_connected' => true]);
 
-        // Retourner également le rôle de l'utilisateur
         return response()->json([
             'token' => $token,
             'user' => $user,
@@ -60,7 +59,7 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         if ($user) {
-            $user->update(['is_connected' => false]); // Déconnecter l'utilisateur
+            $user->update(['is_connected' => false]);
         }
 
         JWTAuth::invalidate(JWTAuth::getToken());
@@ -77,6 +76,7 @@ class AuthController extends Controller
         if ($profileImage) {
             $user->profile_image_url = asset('storage/' . $profileImage->image_path);
         }
+
         return response()->json($user);
     }
 

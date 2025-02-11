@@ -10,12 +10,10 @@ class CommentController extends Controller
     //
     public function comment(Request $request, $article_id)
     {
-        // Validation des données
         $request->validate([
             "content" => "required|string|max:500",
         ]);
 
-        // Vérifier si l'article existe
         $article = Article::findOrFail($article_id);
 
         // Créer le commentaire
