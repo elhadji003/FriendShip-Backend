@@ -17,7 +17,7 @@ class ArticleController extends Controller
         // Récupérer l'utilisateur authentifié (si connecté)
         $user = auth()->user();
 
-        $articles = Article::with(['user', 'likes', 'comments', 'shares'])
+        $articles = Article::with(['user', 'likes',])
             ->orderBy('created_at', 'desc')
             ->paginate(4);
 
@@ -107,7 +107,7 @@ class ArticleController extends Controller
     // Récupérer un article par ID
     public function show(Article $article)
     {
-        return response()->json($article->load(['user', 'likes', 'comments', 'shares']));
+        return response()->json($article->load(['user', 'likes',]));
     }
 
     // Modifier un article

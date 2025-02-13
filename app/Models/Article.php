@@ -22,14 +22,4 @@ class Article extends Model
     {
         return $this->hasMany(Like::class);
     }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function shares()
-    {
-        return $this->hasMany(Share::class);
-    }
 }
